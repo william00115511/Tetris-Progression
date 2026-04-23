@@ -1,0 +1,21 @@
+# Compiled class files
+bin/
+*.class
+
+# Log files
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# 封鎖剛剛誤傳的檔案
+*.txt
+
+# 封鎖編譯檔與 Jar (如果不需要傳 Jar 的話)
+/bin/
+*.jar
+
+# 封鎖其他可能存在的垃圾檔案
+.DS_Store
+Thumbs.db
