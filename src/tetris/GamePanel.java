@@ -85,8 +85,9 @@ public class GamePanel extends JPanel {
         drawBoard(g2d);
         /* Stage 1: Disable advanced visuals
         drawDropTrail(g2d); // Phase 11
-        drawGhostPiece(g2d);
         */
+        // Stage 2: Restore Ghost Piece
+        drawGhostPiece(g2d);
         drawCurrentPiece(g2d);
         
         /* Stage 1: Disable Effects
@@ -452,7 +453,7 @@ public class GamePanel extends JPanel {
     }
 
     private void drawLeftPanel(Graphics2D g) {
-        /* Stage 1: Disable Hold System
+        // Stage 2: Restore Hold System
         g.setFont(new Font("Arial", Font.BOLD, 18));
         drawStringWithShadow(g, "HOLD", 20, 60, gameState.isCanHold() ? Color.WHITE : Color.DARK_GRAY);
         
@@ -466,7 +467,6 @@ public class GamePanel extends JPanel {
         if (holdPiece != null) {
             drawPreviewPiece(g, holdPiece, 30, 95, !gameState.isCanHold());
         }
-        */
 
         g.setFont(new Font("Arial", Font.BOLD, 18));
         drawStringWithShadow(g, "TIME", 20, 300, Color.WHITE);

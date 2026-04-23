@@ -27,11 +27,9 @@ public class InputController extends KeyAdapter {
             case KeyEvent.VK_UP:
                 gameController.upPressed();
                 break;
-            /* Stage 1: Disable Hard Drop
             case KeyEvent.VK_SPACE:
                 gameController.hardDrop();
                 break;
-            */
             /* Stage 1: Disable Pause
             case KeyEvent.VK_ESCAPE:
                 gameController.togglePause();
@@ -42,11 +40,9 @@ public class InputController extends KeyAdapter {
                 gameController.enterPressed();
                 break;
             */
-            /* Stage 1: Disable Hold
             case KeyEvent.VK_C:
                 gameController.hold(); // Phase 13: 移除 SHIFT，僅保留 C 鍵，避免觸發輸入法
                 break;
-            */
         }
     }
 

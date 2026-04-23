@@ -90,8 +90,8 @@ public class GameState {
 
         this.bag = new ArrayList<>();
         this.nextPieces = new ArrayList<>();
-        // Stage 1: Only 1 next piece
-        for (int i = 0; i < 1; i++) {
+        // Stage 2: Restore 4 next pieces
+        for (int i = 0; i < 4; i++) {
             this.nextPieces.add(new Tetromino(getNextFromBag()));
         }
 
@@ -142,7 +142,6 @@ public class GameState {
      */
     public void addAdvancedScore(int lines, boolean isTSpin, int combo) {
         if (lines <= 0) return;
-        /* Stage 1: Disable Advanced Scoring
         int base = 0;
         if (isTSpin) {
             switch (lines) {
@@ -166,8 +165,6 @@ public class GameState {
             base += 50 * combo;
         }
         this.score += base;
-        */
-        this.score += lines * 100; // Basic scoring for Stage 1
     }
 
     public void swapToNextPiece() {
