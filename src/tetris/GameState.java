@@ -76,7 +76,8 @@ public class GameState {
 
     public GameState() {
         this.board = new Board(COLUMNS, ROWS);
-        this.currentState = State.PLAYING; // Stage 1: Skip Menu
+        // Stage 3: Restore Menu
+        this.currentState = State.MENU;
         this.score = 0;
 
         this.currentMode = GameMode.ENDLESS;

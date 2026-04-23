@@ -83,7 +83,7 @@ public class SoundManager {
     // ==========================================
 
     public void playBGM(String filename) {
-        /* Stage 1: Disable Audio
+        // Stage 3: Restore Audio
         stopBGM();
         new Thread(() -> {
             try {
@@ -104,11 +104,10 @@ public class SoundManager {
                 System.out.println("Play BGM: " + filename + " (error: " + e.getMessage() + ")");
             }
         }, "BGM-Thread").start();
-        */
     }
 
     public void stopBGM() {
-        /* Stage 1: Disable Audio
+        // Stage 3: Restore Audio
         if (bgmClip != null) {
             if (bgmClip.isRunning()) {
                 bgmClip.stop();
@@ -116,26 +115,23 @@ public class SoundManager {
             bgmClip.close();
             bgmClip = null;
         }
-        */
     }
 
     public void pauseBGM() {
-        /* Stage 1: Disable Audio
+        // Stage 3: Restore Audio
         if (bgmClip != null && bgmClip.isRunning()) {
             bgmPausePosition = bgmClip.getMicrosecondPosition();
             bgmClip.stop();
         }
-        */
     }
 
     public void resumeBGM() {
-        /* Stage 1: Disable Audio
+        // Stage 3: Restore Audio
         if (bgmClip != null && !bgmClip.isRunning()) {
             bgmClip.setMicrosecondPosition(bgmPausePosition);
             bgmClip.loop(Clip.LOOP_CONTINUOUSLY);
             bgmClip.start();
         }
-        */
     }
 
     // ==========================================
@@ -143,7 +139,7 @@ public class SoundManager {
     // ==========================================
 
     public void playSFX(String eventName) {
-        /* Stage 1: Disable Audio
+        // Stage 3: Restore Audio
         new Thread(() -> {
             try {
                 String filename = eventName.toLowerCase() + ".wav";
@@ -167,6 +163,5 @@ public class SoundManager {
                 System.out.println("Play Sound: " + eventName + " (error: " + e.getMessage() + ")");
             }
         }, "SFX-" + eventName).start();
-        */
     }
 }
