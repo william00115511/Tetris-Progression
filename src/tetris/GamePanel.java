@@ -83,17 +83,15 @@ public class GamePanel extends JPanel {
 
         drawGridLines(g2d);
         drawBoard(g2d);
-        /* Stage 1: Disable advanced visuals
+        // Stage 3: Restore Drop Trail
         drawDropTrail(g2d); // Phase 11
-        */
         // Stage 2: Restore Ghost Piece
         drawGhostPiece(g2d);
         drawCurrentPiece(g2d);
         
-        /* Stage 1: Disable Effects
+        // Stage 3: Restore Particles & Text
         drawParticles(g2d);
         drawFloatingTexts(g2d);
-        */
         
         // 恢復原點供 UI 繪製
         g2d.translate(-matrixOffsetX, 0);
@@ -102,11 +100,10 @@ public class GamePanel extends JPanel {
         drawRightPanel(g2d);
         
         // Level Up 中央特效
-        /* Stage 1: Disable Level Up Text
+        // Stage 3: Restore Level Up Text
         g2d.translate(matrixOffsetX, 0);
         drawLevelUpTrigger(g2d);
         g2d.translate(-matrixOffsetX, 0);
-        */
         
         drawOverlay(g2d);
     }
@@ -533,7 +530,7 @@ public class GamePanel extends JPanel {
                     g.setColor(baseColor);
                     g.fillRect(px, py, CELL_SIZE, CELL_SIZE);
                     
-                    /* Stage 1: Disable 3D Rendering
+                    // Stage 3: Restore 3D Rendering
                     java.awt.GradientPaint gp = new java.awt.GradientPaint(
                         px, py, baseColor.brighter(),
                         px + CELL_SIZE, py + CELL_SIZE, baseColor.darker()
@@ -552,7 +549,6 @@ public class GamePanel extends JPanel {
                         g.fillRect(px, py + CELL_SIZE - 5, CELL_SIZE, 5);
                         g.fillRect(px + CELL_SIZE - 5, py, 5, CELL_SIZE);
                     }
-                    */
 
                     g.setColor(Color.WHITE);
                     g.drawRect(px, py, CELL_SIZE, CELL_SIZE);
@@ -575,7 +571,7 @@ public class GamePanel extends JPanel {
             g.setColor(baseColor);
             g.fillRect(px, py, CELL_SIZE, CELL_SIZE);
             
-            /* Stage 1: Disable 3D rendering
+            // Stage 3: Restore 3D rendering
             java.awt.GradientPaint gp = new java.awt.GradientPaint(
                 px, py, baseColor.brighter(),
                 px + CELL_SIZE, py + CELL_SIZE, baseColor.darker()
@@ -593,7 +589,7 @@ public class GamePanel extends JPanel {
             g.setColor(new Color(0, 0, 0, 120));
             g.fillRect(px, py + CELL_SIZE - 5, CELL_SIZE, 5);
             g.fillRect(px + CELL_SIZE - 5, py, 5, CELL_SIZE);
-            */
+            // Stage 3: Restore 3D rendering End
         } else {
             // GhostPiece 依然保持原樣
             g.setColor(Color.WHITE);
@@ -752,7 +748,7 @@ public class GamePanel extends JPanel {
             }
 
             // 互動式選項陣列
-            /* Stage 1: Disable Interactive Menus
+            // Stage 3: Restore Interactive Menus
             String[] options;
             int selectionIdx;
             if (state == GameState.State.PAUSED) {
@@ -775,7 +771,6 @@ public class GamePanel extends JPanel {
                 }
                 renderMenuItem(g, options[i], cx - 40, yPos, isSelected, Color.WHITE, false);
             }
-            */
         }
     }
 }

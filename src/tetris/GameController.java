@@ -23,7 +23,7 @@ public class GameController implements ActionListener {
         this.timer = new Timer(500, this);
 
         // Phase 9.5: 獨立特效渲染循環 (33ms)，現在負責雙粒子路徑與閃電折線
-        /* Stage 1: Disable Animation Timer
+        // Stage 3: Restore Animation Timer
         this.animationTimer = new Timer(33, e -> {
             boolean needsRepaint = false;
             java.util.Random rand = new java.util.Random();
@@ -117,14 +117,12 @@ public class GameController implements ActionListener {
             }
         });
         this.animationTimer.start();
-        */
     }
 
     public void start() {
-        // Stage 1: Jump right into Endless level
-        startGameSegment(GameState.GameMode.ENDLESS);
+        // Stage 3: Do not jump to endless directly, start BGM and wait in Menu
         timer.start();
-        // soundManager.playBGM("bgm_menu.wav"); // Phase 12.5: 啟動時播放選單 BGM
+        soundManager.playBGM("bgm_menu.wav"); // Phase 12.5: 啟動時播放選單 BGM
     }
 
     @Override
@@ -186,7 +184,7 @@ public class GameController implements ActionListener {
         board.placeTetromino(gameState.getCurrentX(), gameState.getCurrentY(), gameState.getCurrentPiece());
 
         // Phase 9: 預掃描粒子
-        /* Stage 1: Disable Particles
+        // Stage 3: Restore Particles
         int cols = gameState.getColumns();
         int rows = gameState.getRows();
         int[][] grid = board.getGrid();
@@ -202,7 +200,7 @@ public class GameController implements ActionListener {
                 spawnParticles(y);
             }
         }
-        */
+        // Stage 3: Restore Particles End
 
         // Phase 10: T-Spin 與 Combo 結算
         boolean isTSpin = checkTSpin();
@@ -214,10 +212,10 @@ public class GameController implements ActionListener {
             gameState.addAdvancedScore(clearedLines, isTSpin, gameState.getComboCount() - 1);
 
             // Phase 12: 消行音效
-            // soundManager.playSFX(clearedLines >= 4 ? "tetris" : "line_clear");
+            soundManager.playSFX(clearedLines >= 4 ? "tetris" : "line_clear");
 
             if (isTSpin) {
-                /* Stage 3: Disable Floating Text & Audio
+                // Stage 3: Restore Floating Text & Audio
                 String tText = "T-SPIN";
                 if(clearedLines == 1) tText = "T-SPIN SINGLE";
                 if(clearedLines == 2) tText = "T-SPIN DOUBLE!";
@@ -227,17 +225,17 @@ public class GameController implements ActionListener {
                     gameState.getCurrentY() * 30, 
                     new java.awt.Color(230, 0, 255), 45));
                 soundManager.playSFX("tspin"); // Phase 12
-                */
+                // Stage 3: Restore Floating Text & Audio End
             }
 
             if (gameState.getComboCount() > 1) {
-                /* Stage 3: Disable Floating Text & Audio
+                // Stage 3: Restore Floating Text & Audio
                 gameState.getFloatingTexts().add(new FloatingText(gameState.getComboCount() + " COMBO!",
                     gameState.getCurrentX() * 30 - 20,
                     (gameState.getCurrentY() * 30) - 30, 
                     java.awt.Color.ORANGE, 45));
                 soundManager.playSFX("combo"); // Phase 12
-                */
+                // Stage 3: Restore Floating Text & Audio End
             }
             
             gameState.setTotalLinesCleared(gameState.getTotalLinesCleared() + clearedLines);
@@ -252,8 +250,8 @@ public class GameController implements ActionListener {
                     timer.setDelay(newDelay);
 
                     // 引發視覺回饋！
-                    // gameState.triggerLevelUpDisplay();
-                    // soundManager.playSFX("level_up"); // Phase 12
+                    gameState.triggerLevelUpDisplay();
+                    soundManager.playSFX("level_up"); // Phase 12
                 }
             }
         } else {
@@ -261,12 +259,12 @@ public class GameController implements ActionListener {
             // Phase 10: 無消行，Combo 歸零。但若是純 T-Spin 依然有短暫提示加分
             gameState.setComboCount(0);
             if (isTSpin) {
-                /* Stage 3: Disable Floating Text
+                // Stage 3: Restore Floating Text
                 gameState.getFloatingTexts().add(new FloatingText("T-SPIN",
                     gameState.getCurrentX() * 30 - 10, 
                     gameState.getCurrentY() * 30, 
                     new java.awt.Color(230, 0, 255), 30));
-                */
+                // Stage 3: Restore Floating Text End
             }
         }
 
@@ -464,7 +462,7 @@ public class GameController implements ActionListener {
         if (System.currentTimeMillis() - lastHoldTime < 100) return; // Debounce
         lastHoldTime = System.currentTimeMillis();
 
-        // soundManager.playSFX("hold"); // Phase 12
+        soundManager.playSFX("hold"); // Phase 12
         if (gameState.getCurrentState() != GameState.State.PLAYING)
             return;
         if (!gameState.isCanHold())
@@ -505,7 +503,7 @@ public class GameController implements ActionListener {
         if (System.currentTimeMillis() - lastHardDropTime < 100) return; // Debounce
         lastHardDropTime = System.currentTimeMillis();
 
-        // soundManager.playSFX("hard_drop"); // Phase 12
+        soundManager.playSFX("hard_drop"); // Phase 12
         if (gameState.getCurrentState() != GameState.State.PLAYING)
             return;
 
@@ -523,7 +521,7 @@ public class GameController implements ActionListener {
         }
 
         // Phase 11.6: 破風金星特效取代舊光柱
-        /* Stage 3: Disable Hard Drop Particles
+        // Stage 3: Restore Hard Drop Particles
         int[][] shape = currentPiece.getShape();
         int minC = shape[0].length;
         int maxC = -1;
@@ -559,7 +557,7 @@ public class GameController implements ActionListener {
                 }
             }
         }
-        */
+        // Stage 3: Restore Hard Drop Particles End
 
         gameState.setCurrentY(dropY);
 
