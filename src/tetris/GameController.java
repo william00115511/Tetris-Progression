@@ -205,18 +205,19 @@ public class GameController implements ActionListener {
         */
 
         // Phase 10: T-Spin 與 Combo 結算
-        // boolean isTSpin = checkTSpin();
+        boolean isTSpin = checkTSpin();
         int clearedLines = board.checkAndClearLines();
         
         if (clearedLines > 0) {
-            /* Stage 1: Disable Advanced Score Multipliers
+            // Stage 2: Restore Advanced Score Multipliers
             gameState.setComboCount(gameState.getComboCount() + 1);
             gameState.addAdvancedScore(clearedLines, isTSpin, gameState.getComboCount() - 1);
 
             // Phase 12: 消行音效
-            soundManager.playSFX(clearedLines >= 4 ? "tetris" : "line_clear");
+            // soundManager.playSFX(clearedLines >= 4 ? "tetris" : "line_clear");
 
             if (isTSpin) {
+                /* Stage 3: Disable Floating Text & Audio
                 String tText = "T-SPIN";
                 if(clearedLines == 1) tText = "T-SPIN SINGLE";
                 if(clearedLines == 2) tText = "T-SPIN DOUBLE!";
@@ -226,14 +227,17 @@ public class GameController implements ActionListener {
                     gameState.getCurrentY() * 30, 
                     new java.awt.Color(230, 0, 255), 45));
                 soundManager.playSFX("tspin"); // Phase 12
+                */
             }
 
             if (gameState.getComboCount() > 1) {
+                /* Stage 3: Disable Floating Text & Audio
                 gameState.getFloatingTexts().add(new FloatingText(gameState.getComboCount() + " COMBO!",
                     gameState.getCurrentX() * 30 - 20,
                     (gameState.getCurrentY() * 30) - 30, 
                     java.awt.Color.ORANGE, 45));
                 soundManager.playSFX("combo"); // Phase 12
+                */
             }
             
             gameState.setTotalLinesCleared(gameState.getTotalLinesCleared() + clearedLines);
@@ -248,23 +252,22 @@ public class GameController implements ActionListener {
                     timer.setDelay(newDelay);
 
                     // 引發視覺回饋！
-                    gameState.triggerLevelUpDisplay();
-                    soundManager.playSFX("level_up"); // Phase 12
+                    // gameState.triggerLevelUpDisplay();
+                    // soundManager.playSFX("level_up"); // Phase 12
                 }
             }
-            */
-            gameState.addAdvancedScore(clearedLines, false, 0);
         } else {
-            /* Stage 1: Disable TSpin visual
+            // Stage 2: Restore Combo Reset
             // Phase 10: 無消行，Combo 歸零。但若是純 T-Spin 依然有短暫提示加分
             gameState.setComboCount(0);
             if (isTSpin) {
+                /* Stage 3: Disable Floating Text
                 gameState.getFloatingTexts().add(new FloatingText("T-SPIN",
                     gameState.getCurrentX() * 30 - 10, 
                     gameState.getCurrentY() * 30, 
                     new java.awt.Color(230, 0, 255), 30));
+                */
             }
-            */
         }
 
         gameState.setCanHold(true);
@@ -457,11 +460,11 @@ public class GameController implements ActionListener {
     // ==========================================
 
     public void hold() {
-        /* Stage 1: Disable Hold
+        // Stage 2: Restore Hold
         if (System.currentTimeMillis() - lastHoldTime < 100) return; // Debounce
         lastHoldTime = System.currentTimeMillis();
 
-        soundManager.playSFX("hold"); // Phase 12
+        // soundManager.playSFX("hold"); // Phase 12
         if (gameState.getCurrentState() != GameState.State.PLAYING)
             return;
         if (!gameState.isCanHold())
@@ -491,7 +494,6 @@ public class GameController implements ActionListener {
         gameState.setLockWaiting(false);
         gameState.setCanHold(false);
         gamePanel.repaint();
-        */
     }
 
     // ==========================================
@@ -499,11 +501,11 @@ public class GameController implements ActionListener {
     // ==========================================
 
     public void hardDrop() {
-        /* Stage 1: Disable HardDrop
+        // Stage 2: Restore HardDrop
         if (System.currentTimeMillis() - lastHardDropTime < 100) return; // Debounce
         lastHardDropTime = System.currentTimeMillis();
 
-        soundManager.playSFX("hard_drop"); // Phase 12
+        // soundManager.playSFX("hard_drop"); // Phase 12
         if (gameState.getCurrentState() != GameState.State.PLAYING)
             return;
 
@@ -521,6 +523,7 @@ public class GameController implements ActionListener {
         }
 
         // Phase 11.6: 破風金星特效取代舊光柱
+        /* Stage 3: Disable Hard Drop Particles
         int[][] shape = currentPiece.getShape();
         int minC = shape[0].length;
         int maxC = -1;
@@ -556,13 +559,13 @@ public class GameController implements ActionListener {
                 }
             }
         }
+        */
 
         gameState.setCurrentY(dropY);
 
         gameState.setLockWaiting(false);
         finalizePieceAndSpawnNext();
         gamePanel.repaint();
-        */
     }
 
     public void leftPressed() {
