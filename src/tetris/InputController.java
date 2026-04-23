@@ -30,16 +30,13 @@ public class InputController extends KeyAdapter {
             case KeyEvent.VK_SPACE:
                 gameController.hardDrop();
                 break;
-            /* Stage 1: Disable Pause
+            // Stage 3: Restore Pause & Menus
             case KeyEvent.VK_ESCAPE:
                 gameController.togglePause();
                 break;
-            */
-            /* Stage 1: Disable Menu Navigation
             case KeyEvent.VK_ENTER:
                 gameController.enterPressed();
                 break;
-            */
             case KeyEvent.VK_C:
                 gameController.hold(); // Phase 13: 移除 SHIFT，僅保留 C 鍵，避免觸發輸入法
                 break;
