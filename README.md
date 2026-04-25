@@ -97,12 +97,10 @@ java -cp bin tetris.Main
 ## 8. 畫面截圖
 
 ### 遊戲大廳主選單
-![Menu Interface](assets/stage3-demo.png)
+![Menu Interface](assets/stage3-demo%281%29.png)
 
-<<<<<<< Updated upstream
-### 實際遊玩介面
-![Gameplay Screen](assets/stage2-demo.png)
-=======
+----
+
 ### 遊戲結算畫面
 ![Gameplay Screen](assets/stage3-demo%282%29.png)
 
@@ -110,7 +108,6 @@ java -cp bin tetris.Main
 
 ### 實際遊玩介面
 ![Game Over Screen](assets/stage3-demo%283%29.png)
->>>>>>> Stashed changes
 
 ## 9. 組員分工
 本專案由**個人獨立完成**，涵蓋需求分析、架構設計、程式實作、視覺特效開發、音效整合與文件撰寫等所有環節。
